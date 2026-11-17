@@ -2,47 +2,448 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Trường THPT Nguyễn Gia Thiều</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trường THPT Nguyễn Gia Thiều - Chào mừng Ngày Nhà giáo Việt Nam 20/11</title>
+    <style>
+        :root {
+            --primary: #0b3954;
+            --primary-light: #185a82;
+            --accent: #d97706;
+            --accent-soft: #fef3c7;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #475569;
+            --border: #e2e8f0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-page); color: var(--text-dark); line-height: 1.7; }
+
+        /* Thanh điều hướng 7 chuyên mục */
+        header.navbar { position: sticky; top: 0; z-index: 1000; background: var(--primary); border-bottom: 3px solid var(--accent); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+        .nav-wrap { max-width: 1200px; margin: 0 auto; padding: 10px 20px; }
+        .nav-top { display: flex; justify-content: space-between; align-items: center; color: white; margin-bottom: 8px; }
+        .brand { font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+        .brand span { background: var(--accent); padding: 2px 10px; border-radius: 20px; font-size: 0.8rem; }
+        .nav-menu { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
+        .nav-menu a { display: block; text-decoration: none; color: #e2e8f0; background: rgba(255,255,255,0.08); padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; transition: 0.25s; }
+        .nav-menu a:hover { background: var(--accent); color: white; font-weight: 600; }
+
+        /* Banner Trang chủ */
+        .hero {
+            background: linear-gradient(135deg, rgba(11, 57, 84, 0.92), rgba(24, 90, 130, 0.86)),
+                        url('https://wikimedia.org') center/cover;
+            color: white; text-align: center; padding: 75px 20px;
+        }
+        .badge-2011 { display: inline-block; background: var(--accent); padding: 6px 20px; border-radius: 30px; font-weight: 700; font-size: 0.95rem; margin-bottom: 15px; }
+        .hero h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: 2px; }
+        .hero h1 { font-size: 3rem; font-weight: 800; margin: 5px 0 12px; text-shadow: 0 3px 10px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.2rem; font-style: italic; color: #fde68a; }
+
+        /* Khung từng chuyên mục */
+        .container { max-width: 1050px; margin: 0 auto; padding: 35px 20px; }
+        .section-block { background: var(--bg-card); border-radius: 16px; padding: 35px; margin-bottom: 35px; box-shadow: 0 6px 25px rgba(0,0,0,0.06); border: 1px solid var(--border); scroll-margin-top: 115px; }
+        .section-header { border-bottom: 2px solid var(--border); padding-bottom: 12px; margin-bottom: 22px; }
+        .section-tag { display: inline-block; background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 0.8rem; padding: 3px 12px; border-radius: 20px; margin-bottom: 6px; }
+        .section-header h2 { color: var(--primary); font-size: 1.7rem; }
+        .section-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Lời chào & Ảnh */
+        .welcome-box { background: #fffbeb; border-left: 5px solid var(--accent); padding: 22px; border-radius: 10px; }
+        .welcome-box p { margin-bottom: 12px; text-align: justify; }
+        .welcome-box p:last-child { margin-bottom: 0; }
+        .school-photo { width: 100%; max-height: 420px; object-fit: cover; border-radius: 12px; margin-top: 22px; border: 3px solid var(--primary); }
+
+        /* Giới thiệu & Dòng thời gian */
+        .sub-title { color: var(--primary-light); font-size: 1.25rem; margin: 25px 0 12px; }
+        .sub-title:first-of-type { margin-top: 0; }
+        .content-text p { margin-bottom: 12px; text-align: justify; }
+        .timeline { border-left: 3px solid var(--primary); margin-left: 10px; padding-left: 22px; margin-top: 15px; }
+        .timeline-item { position: relative; margin-bottom: 15px; background: #f8fafc; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); }
+        .timeline-item::before { content: ''; position: absolute; left: -30px; top: 16px; width: 13px; height: 13px; background: var(--accent); border: 2px solid white; border-radius: 50%; box-shadow: 0 0 0 2px var(--primary); }
+        .timeline-year { font-weight: 800; color: var(--primary); margin-bottom: 3px; }
+        .famous-card { background: #f1f5f9; padding: 20px; border-radius: 12px; border-top: 4px solid var(--primary); }
+
+        footer { background: var(--primary); color: #e2e8f0; text-align: center; padding: 28px 20px; border-top: 4px solid var(--accent); }
+        @media (max-width: 768px) { .hero h1 { font-size: 2rem; } }
+    </style>
 </head>
 <body>
 
-    <h1 style="color: blue;">TRƯỜNG THPT NGUYỄN GIA THIỀU</h1>
-    <p><i>Ngôi trường giàu truyền thống dạy tốt - học tốt của Thủ đô Hà Nội.</i></p>
-    <hr>
+    <header class="navbar">
+        <div class="nav-wrap">
+            <div class="nav-top">
+                <div class="brand"><span>20/11</span> THPT NGUYỄN GIA THIỀU</div>
+                <div style="font-size: 0.85rem; color: #fde68a;">Tự hào truyền thống – Vững bước tương lai</div>
+            </div>
+             <ul class="nav-menu">
+                <li><a href="#1">Lời mở đầu</a></li>
+                <li><a href="#2">01. Giới thiệu nhà trường</a></li>
+                <li><a href="#3">02. Thành tích và dấu ấn</a></li>
+                <li><a href="#4">03. Đội ngũ nhà giáo</a></li>
+                <li><a href="#5">04. Hoạt động học sinh</a></li>
+                <li><a href="#6">05. Góc 20/11 – Tri ân</a></li>
+                <li><a href="#7">06. Âm nhạc dưới mái trường</a></li>
+            </ul>
+        </div>
+    </header>
 
-    <!-- Hình ảnh minh họa -->
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL1L0KB7_vdcrDzfoDlfbU4pet0uBpbiib9hJgFYYEw8Z_s7QNGXUrKDo0&s=10" 
-         alt="Trường THPT Nguyễn Gia Thiều" 
-         width="500">
-    <p><i>Ảnh trường THPT Nguyễn Gia Thiều</i></p>
+    <section class="hero">
+        <div class="badge-2011">🌸 Chào mừng Ngày Nhà giáo Việt Nam 20/11 🌸</div>
+        <h2>TRƯỜNG TRUNG HỌC PHỔ THÔNG</h2>
+        <h1>NGUYỄN GIA THIỀU</h1>
+        <p>Tự hào truyền thống – Vững bước tương lai</p>
+    </section>
 
-    <h2 style="color: blue;">1. Giới thiệu chung</h2>
-    <p>
-        <b>Trường THPT Nguyễn Gia Thiều</b> được thành lập năm <b>1950</b>, tọa lạc tại quận Long Biên, Hà Nội. Trường vinh dự được mang tên danh nhân văn hóa Ôn Như Hầu Nguyễn Gia Thiều.
-    </p>
+    <main class="container">
 
-    <h2 style="color: blue;">2. Hoạt động và Thành tích</h2>
-    <ul>
-        <li>Luôn nằm trong nhóm các trường THPT có chất lượng giáo dục hàng đầu Hà Nội.</li>
-        <li>Tỉ lệ học sinh đỗ tốt nghiệp và trúng tuyển đại học đạt mức cao.</li>
-        <li>Có nhiều câu lạc bộ ngoại khóa sôi nổi dành cho học sinh.</li>
-    </ul>
+        
 
-    <h2 style="color: blue;">3. Thông tin cơ bản</h2>
-    <table border="1" cellpadding="5" cellspacing="0">
-        <tr>
-            <th>Mục</th>
-            <th>Thông tin</th>
-        </tr>
-        <tr>
-            <td>Địa chỉ</td>
-            <td>Số 27, ngõ 298 phố Ngọc Lâm, quận Long Biên, Hà Nội</td>
-        </tr>
-        <tr>
-            <td>Page</td>
-            <td><a href="https://www.facebook.com/nguyengiathieu" target="_blank">Facebook Trường THPT Nguyễn Gia Thiều</a></td>
-        </tr>
-    </table>
+        <!-- MỤC 01: TRANG CHỦ -->
+        <section id="1" class="section-block">
+            <div class="section-header">
+                <h2>Lời chào mừng</h2>
+                <p>Lời chào và hình ảnh nổi bật của nhà trường</p>
+            </div>
+            <div class="welcome-box">
+                <p>Chào mừng quý thầy cô, quý phụ huynh, các thế hệ cựu học sinh và các em học sinh đến với trang thông tin giới thiệu <b>Trường THPT Nguyễn Gia Thiều</b>.</p>
+                <p>Hơn bảy thập kỷ xây dựng và phát triển, Trường THPT Nguyễn Gia Thiều đã trở thành nơi lưu giữ những giá trị truyền thống tốt đẹp, nơi các thế hệ thầy và trò cùng viết nên những dấu ấn đáng tự hào trên hành trình giáo dục.</p>
+                <p>Mỗi ngày dưới mái trường là một hành trình khám phá tri thức, rèn luyện nhân cách và nuôi dưỡng ước mơ. Với tinh thần đoàn kết, trách nhiệm và không ngừng đổi mới, nhà trường tiếp tục hướng tới mục tiêu xây dựng môi trường giáo dục toàn diện, nơi mỗi học sinh được phát triển năng lực và khẳng định bản thân.</p>
+            </div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVCeMyLWniFJVN3WHM0j3vCLoSFgOSZRGmR1woGXnmwQ&s=10" alt="Trường THPT Nguyễn Gia Thiều" class="school-photo">
+        </section>
 
-</body>
-</html>
+        <!-- MỤC 02: GIỚI THIỆU NHÀ TRƯỜNG -->
+        <section id="2" class="section-block">
+            <div class="section-header">
+                <h2>I. Giới thiệu chung</h2>
+                <p>Lịch sử, truyền thống, danh nhân Nguyễn Gia Thiều</p>
+            </div>
+            <div class="content-text">
+                <h3 class="sub-title">1. Về mái trường Nguyễn Gia Thiều</h3>
+                <p>Trường THPT Nguyễn Gia Thiều là một trong những ngôi trường có bề dày lịch sử của ngành Giáo dục Thủ đô Hà Nội.</p>
+                <p>Được thành lập năm <b>1950</b>, nhà trường đã trải qua nhiều giai đoạn xây dựng, trưởng thành và phát triển. Từ những ngày đầu còn nhiều khó khăn, các thế hệ cán bộ, giáo viên và học sinh đã cùng nhau vun đắp nên truyền thống <i>dạy tốt – học tốt</i>, tạo dựng những giá trị bền vững qua nhiều thế hệ.</p>
+                <p>Ngày nay, Trường THPT Nguyễn Gia Thiều tiếp tục phát huy những thành quả đã đạt được, chú trọng nâng cao chất lượng giáo dục, đổi mới phương pháp giảng dạy và xây dựng môi trường học tập tích cực, thân thiện.</p>
+
+                <h3 class="sub-title">2. Lịch sử hình thành và phát triển</h3>
+                <div class="timeline">
+                    <div class="timeline-item"><div class="timeline-year">Năm 1950</div><p>Trường được thành lập tại thôn Lạc Thổ, Thuận Thành, tỉnh Bắc Ninh, với những lớp học đầu tiên.</p></div>
+                    <div class="timeline-item"><div class="timeline-year">Năm 1951</div><p>Nhà trường chuyển về Hà Nội, gắn bó với khu vực Ngọc Lâm cho đến ngày nay.</p></div>
+                    <div class="timeline-item"><div class="timeline-year">Những năm tiếp theo</div><p>Trải qua nhiều giai đoạn lịch sử, kể cả thời kỳ chiến tranh và sơ tán, nhà trường vẫn duy trì hoạt động giáo dục, không ngừng phát triển về quy mô và chất lượng.</p></div>
+                    <div class="timeline-item"><div class="timeline-year">Năm 1995</div><p>Nhà trường được trao tặng <b>Huân chương Lao động hạng Ba</b>.</p></div>
+                    <div class="timeline-item"><div class="timeline-year">Năm 2008</div><p>Nhà trường vinh dự đón nhận <b>Huân chương Lao động hạng Nhất</b>.</p></div>
+                    <div class="timeline-item"><div class="timeline-year">Năm 2020</div><p>Kỷ niệm 70 năm thành lập và đón nhận <b>Huân chương Độc lập hạng Ba</b>.</p></div>
+                </div>
+                <p style="margin-top: 12px; font-style: italic; color: var(--text-muted);">Mỗi cột mốc là một dấu ấn ghi nhận sự nỗ lực, cống hiến của nhiều thế hệ thầy và trò, đồng thời khẳng định vị thế và truyền thống đáng tự hào của nhà trường.</p>
+
+                <h3 class="sub-title">3. Danh nhân Nguyễn Gia Thiều – Người gửi gắm tên trường</h3>
+                <div class="famous-card">
+                    <p><b>Nguyễn Gia Thiều (1741–1798)</b>, hiệu <b>Ôn Như Hầu</b>, là một nhà thơ tiêu biểu của văn học Việt Nam trung đại, nổi tiếng với tác phẩm <i>Cung oán ngâm khúc</i>.</p>
+                    <p>Ông là người có tài năng văn chương, am hiểu nhiều lĩnh vực nghệ thuật và để lại dấu ấn sâu sắc trong nền văn học dân tộc.</p>
+                    <p style="margin-bottom: 0;">Việc mang tên danh nhân Nguyễn Gia Thiều không chỉ là niềm vinh dự mà còn là lời nhắc nhở các thế hệ học sinh về giá trị của tri thức, văn hóa và truyền thống hiếu học.</p>
+                </div>
+            </div>
+        </section>
+         <!-- MỤC 03: THÀNH TÍCH VÀ DẤU ẤN (PHẦN II LỚN) -->
+        <section id="3" class="section-block">
+            <div class="section-header">
+                <h2>II. Truyền thống và Thành tích</h2>
+                <p>Những cột mốc đáng tự hào</p>
+            </div>
+
+            <div class="content-text">
+                <h3 class="sub-title">1. Truyền thống dạy tốt – học tốt</h3>
+                <p>
+                    Trải qua nhiều thế hệ, Trường THPT Nguyễn Gia Thiều luôn chú trọng xây dựng môi trường giáo dục chất lượng, đề cao tinh thần trách nhiệm, sự tận tâm của người thầy và ý thức tự học của học sinh.
+                </p>
+                <p>
+                    Những thành quả trong giảng dạy, học tập và các hoạt động giáo dục toàn diện chính là minh chứng cho sự nỗ lực bền bỉ của tập thể nhà trường.
+                </p>
+
+                <h3 class="sub-title">2. Những dấu ấn đáng tự hào</h3>
+                <p>
+                    Nhà trường đã ghi nhận nhiều thành tích trong các phong trào thi đua, hội thi giáo viên giỏi, kỳ thi học sinh giỏi và các hoạt động giáo dục của thành phố.
+                </p>
+                <p>
+                    Đặc biệt, nhiều thế hệ học sinh trưởng thành từ mái trường Nguyễn Gia Thiều đã tiếp tục học tập, làm việc và đóng góp tích cực cho xã hội trên nhiều lĩnh vực.
+                </p>
+                <p>
+                    Mỗi thành tích không chỉ là niềm tự hào mà còn là động lực để thầy và trò tiếp tục phấn đấu, giữ gìn và phát huy truyền thống của nhà trường.
+                </p>
+
+                <!-- Khung điểm nhấn trang trọng về Tổng Bí thư Nguyễn Phú Trọng -->
+                <div style="margin-top: 25px; background: linear-gradient(to right, #fffbeb, #fef3c7); border: 1px solid #fcd34d; border-left: 5px solid #b45309; padding: 24px; border-radius: 12px;">
+                    <h4 style="color: #92400e; font-size: 1.15rem; margin-bottom: 12px; letter-spacing: 0.3px;">
+                        ⭐ TỔNG BÍ THƯ NGUYỄN PHÚ TRỌNG – NIỀM TỰ HÀO CỦA MÁI TRƯỜNG
+                    </h4>
+                    <p style="margin-bottom: 10px; text-align: justify;">
+                        Đồng chí <b>Nguyễn Phú Trọng (1944–2024)</b>, nguyên Tổng Bí thư Ban Chấp hành Trung ương Đảng Cộng sản Việt Nam, từng là học sinh Trường THPT Nguyễn Gia Thiều trong giai đoạn <b>1957–1963</b>. Sáu năm học tập dưới mái trường đã trở thành một dấu ấn đáng nhớ trong cuộc đời đồng chí.
+                    </p>
+                    <p style="margin-bottom: 0; text-align: justify;">
+                        Ông cũng từng trở lại thăm trường, gặp gỡ thầy cô và các thế hệ học sinh. Hình ảnh người học trò năm ấy là một dấu ấn đáng tự hào trong truyền thống của nhà trường.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MỤC 04: ĐỘI NGŨ NHÀ GIÁO -->
+             
+        <section id="4" class="section-block">
+            <div class="section-header">
+                <h2>III. Đội ngũ nhà giáo – Những người truyền lửa</h2>
+                <p>Những người truyền lửa và đồng hành</p>
+            </div>
+
+            <div class="content-text">
+                <p>
+                    Đằng sau mỗi bước trưởng thành của học sinh luôn có sự đồng hành tận tụy của thầy cô.
+                </p>
+                <p>
+                    Với kiến thức chuyên môn, tinh thần trách nhiệm và tình yêu nghề, đội ngũ cán bộ, giáo viên <b>Trường THPT Nguyễn Gia Thiều</b> luôn nỗ lực đổi mới phương pháp giảng dạy, khơi dậy niềm say mê học tập và tạo điều kiện để học sinh phát triển toàn diện.
+                </p>
+                <p>
+                    Không chỉ là người truyền đạt kiến thức, thầy cô còn là những người định hướng, sẻ chia và truyền cảm hứng, giúp học sinh tự tin bước vào tương lai.
+                </p>
+
+                <!-- Khung trích dẫn điểm nhấn -->
+                <div style="margin-top: 22px; background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border-left: 5px solid var(--primary); padding: 20px 25px; border-radius: 10px; text-align: center;">
+                    <p style="margin: 0; font-size: 1.15rem; font-weight: 700; font-style: italic; color: var(--primary);">
+                        “Một lời giảng hôm nay – Một hành trang cho ngày mai.”
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- MỤC 05: THÀNH TÍCH VÀ DẤU ẤN -->
+             
+        <section id="5" class="section-block">
+            <div class="section-header">
+                
+                <h2>II. Truyền thống và Thành tích</h2>
+                <p>Những cột mốc đáng tự hào</p>
+            </div>
+
+            <div class="content-text">
+                <h3 class="sub-title">1. Truyền thống dạy tốt – học tốt</h3>
+                <p>
+                    Trải qua nhiều thế hệ, Trường THPT Nguyễn Gia Thiều luôn chú trọng xây dựng môi trường giáo dục chất lượng, đề cao tinh thần trách nhiệm, sự tận tâm của người thầy và ý thức tự học của học sinh.
+                </p>
+                <p>
+                    Những thành quả trong giảng dạy, học tập và các hoạt động giáo dục toàn diện chính là minh chứng cho sự nỗ lực bền bỉ của tập thể nhà trường.
+                </p>
+
+                <h3 class="sub-title">2. Những dấu ấn đáng tự hào</h3>
+                <p>
+                    Nhà trường đã ghi nhận nhiều thành tích trong các phong trào thi đua, hội thi giáo viên giỏi, kỳ thi học sinh giỏi và các hoạt động giáo dục của thành phố.
+                </p>
+                <p>
+                    Đặc biệt, nhiều thế hệ học sinh trưởng thành từ mái trường Nguyễn Gia Thiều đã tiếp tục học tập, làm việc và đóng góp tích cực cho xã hội trên nhiều lĩnh vực.
+                </p>
+                <p>
+                    Mỗi thành tích không chỉ là niềm tự hào mà còn là động lực để thầy và trò tiếp tục phấn đấu, giữ gìn và phát huy truyền thống của nhà trường.
+                </p>
+
+                <!-- Khung điểm nhấn trang trọng về Tổng Bí thư Nguyễn Phú Trọng -->
+                <div style="margin-top: 25px; background: linear-gradient(to right, #fffbeb, #fef3c7); border: 1px solid #fcd34d; border-left: 5px solid #b45309; padding: 24px; border-radius: 12px;">
+                    <h4 style="color: #92400e; font-size: 1.15rem; margin-bottom: 12px; letter-spacing: 0.3px;">
+                        ⭐ TỔNG BÍ THƯ NGUYỄN PHÚ TRỌNG – NIỀM TỰ HÀO CỦA MÁI TRƯỜNG
+                    </h4>
+                    <p style="margin-bottom: 10px; text-align: justify;">
+                        Đồng chí <b>Nguyễn Phú Trọng (1944–2024)</b>, nguyên Tổng Bí thư Ban Chấp hành Trung ương Đảng Cộng sản Việt Nam, từng là học sinh Trường THPT Nguyễn Gia Thiều trong giai đoạn <b>1957–1963</b>. Sáu năm học tập dưới mái trường đã trở thành một dấu ấn đáng nhớ trong cuộc đời đồng chí.
+                    </p>
+                    <p style="margin-bottom: 0; text-align: justify;">
+                        Ông cũng từng trở lại thăm trường, gặp gỡ thầy cô và các thế hệ học sinh. Hình ảnh người học trò năm ấy là một dấu ấn đáng tự hào trong truyền thống của nhà trường.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- MỤC 06: HOẠT ĐỘNG HỌC SINH -->
+        <section id="6" class="section-block">
+            <div class="section-header">
+                <h2>IV. Hoạt động học sinh – Năng động và sáng tạo</h2>
+                <p>Học tập, ngoại khóa, văn nghệ, thể thao</p>
+            </div>
+
+            <div class="content-text">
+                <p>
+                    Tuổi học trò tại <b>Nguyễn Gia Thiều</b> không chỉ được tạo nên bởi những giờ học trên lớp mà còn bởi những hoạt động tập thể, những trải nghiệm và những kỷ niệm khó quên.
+                </p>
+
+                <!-- Lưới các mảng hoạt động tiêu biểu -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <div style="background: #f8fafc; border: 1px solid var(--border); border-top: 4px solid #0284c7; padding: 16px; border-radius: 10px;">
+                        <h4 style="color: var(--primary); margin-bottom: 6px;">🚩 Đoàn Thanh niên & Ngoại khóa</h4>
+                        <p style="font-size: 0.9rem; margin: 0;">Rèn luyện kỹ năng, tinh thần trách nhiệm và khả năng làm việc tập thể.</p>
+                    </div>
+                    <div style="background: #f8fafc; border: 1px solid var(--border); border-top: 4px solid #d97706; padding: 16px; border-radius: 10px;">
+                        <h4 style="color: var(--primary); margin-bottom: 6px;">🎭 Văn nghệ & Thể thao</h4>
+                        <p style="font-size: 0.9rem; margin: 0;">Tạo nên môi trường học đường sôi nổi, khơi dậy đam mê và năng khiếu.</p>
+                    </div>
+                    <div style="background: #f8fafc; border: 1px solid var(--border); border-top: 4px solid #059669; padding: 16px; border-radius: 10px;">
+                        <h4 style="color: var(--primary); margin-bottom: 6px;">🧠 Trí tuệ & Thiện nguyện</h4>
+                        <p style="font-size: 0.9rem; margin: 0;">Khám phá khả năng bản thân và lan tỏa những hành động ý nghĩa vì cộng đồng.</p>
+                    </div>
+                </div>
+
+                <p>
+                    Các hoạt động Đoàn Thanh niên, văn nghệ, thể thao, hoạt động ngoại khóa và các chương trình thiện nguyện góp phần tạo nên một môi trường học đường năng động, giúp học sinh phát triển kỹ năng, tinh thần trách nhiệm và khả năng làm việc tập thể.
+                </p>
+                <p>
+                    Từ những tiết mục văn nghệ, những cuộc thi trí tuệ đến những hoạt động vì cộng đồng, mỗi học sinh đều có cơ hội khám phá khả năng của mình và đóng góp vào tập thể.
+                </p>
+
+                <!-- Khung khẩu hiệu điểm nhấn -->
+                <div style="margin-top: 22px; background: linear-gradient(135deg, #fffbeb, #fef3c7); border-left: 5px solid var(--accent); padding: 18px 24px; border-radius: 10px; text-align: center;">
+                    <p style="margin: 0; font-size: 1.15rem; font-weight: 700; font-style: italic; color: #92400e;">
+                        “Học tập để trưởng thành – Trải nghiệm để tỏa sáng.”
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+             <!-- MỤC 07: GÓC 20/11 – TRI ÂN (PHẦN V LỚN) -->
+        <section id="7" class="section-block">
+            <div class="section-header">
+                <h2>V. Tháng 11 – Gửi ngàn lời tri ân</h2>
+                <p>Lời chúc, câu chuyện và kỷ niệm về thầy cô</p>
+            </div>
+
+            <div class="content-text">
+                <p>
+                    Tháng 11 trở về trong không khí ấm áp của mùa tri ân, khi những lời chúc và tình cảm dành cho thầy cô được gửi gắm bằng nhiều cách khác nhau.
+                </p>
+                <p>
+                    Hướng tới Ngày Nhà giáo Việt Nam 20/11, <b>Trường THPT Nguyễn Gia Thiều</b> cùng nhìn lại những hành trình đã qua, trân trọng những đóng góp của các thế hệ nhà giáo và tôn vinh những giá trị cao đẹp của nghề dạy học.
+                </p>
+                <p>
+                    Có những bài học không chỉ nằm trong trang sách. Có những lời dặn dò theo ta qua năm tháng. Và có những người thầy, người cô dù thời gian trôi qua vẫn luôn được nhớ đến bằng sự kính trọng và biết ơn.
+                </p>
+                <p>
+                    Nhân ngày 20/11, kính chúc toàn thể cán bộ, giáo viên, nhân viên nhà trường luôn mạnh khỏe, hạnh phúc và giữ mãi ngọn lửa nhiệt huyết với sự nghiệp trồng người.
+                </p>
+
+                <!-- Khung bức thư tri ân -->
+                <div style="margin-top: 25px; background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 1px solid #fcd34d; border-left: 5px solid var(--accent); padding: 26px; border-radius: 12px;">
+                    <h3 style="color: #92400e; font-size: 1.2rem; margin-bottom: 12px;">
+                        💌 Những lời muốn gửi đến thầy cô
+                    </h3>
+                    <p style="font-style: italic; color: #334155; margin-bottom: 12px;">
+                        “Cảm ơn thầy cô vì đã kiên nhẫn với những lần chúng em chưa hiểu bài, bao dung trước những thiếu sót và luôn tin tưởng vào khả năng của mỗi học trò.
+                    </p>
+                    <p style="font-style: italic; color: #334155; margin-bottom: 0;">
+                        Cảm ơn vì đã biến những ngày đến trường thành những ngày tháng đáng nhớ. Dù mai này mỗi người sẽ đi trên một hành trình riêng, những bài học và tình cảm dưới mái trường Nguyễn Gia Thiều sẽ luôn là một phần hành trang quý giá.”
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MỤC 07: ÂM NHẠC DƯỚI MÁI TRƯỜNG (PHẦN VI LỚN) -->
+        <section id="muc-07" class="section-block">
+            <div class="section-header">
+                <h2>VI. Góc âm nhạc – Giai điệu của tri ân và tuổi học trò</h2>
+                <p>Các ca khúc và lời hát sáng tác riêng</p>
+            </div>
+
+            <div class="content-text">
+                <p>
+                    Âm nhạc là một cách đặc biệt để lưu giữ cảm xúc. Có những giai điệu chỉ cần vang lên đã gợi nhắc về mái trường, thầy cô và những năm tháng học trò.
+                </p>
+                <p>
+                    Góc âm nhạc giới thiệu những ca khúc giàu cảm xúc về tình thầy trò, mái trường và tuổi thanh xuân.
+                </p>
+
+                <!-- Danh sách ca khúc gợi ý -->
+                <div style="background: #f8fafc; border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin: 20px 0;">
+                    <h4 style="color: var(--primary); margin-bottom: 12px; font-size: 1.1rem;">🎵 Một số ca khúc gợi ý:</h4>
+                    <ul style="padding-left: 22px; display: grid; gap: 8px;">
+                        <li><b>Bụi phấn</b> – Nhạc và lời: Vũ Hoàng, Lê Văn Lộc.</li>
+                        <li><b>Người thầy</b> – Nhạc và lời: Nguyễn Nhất Huy.</li>
+                        <li><b>Mong ước kỷ niệm xưa</b> – Nhạc và lời: Xuân Phương.</li>
+                        <li><b>Người gieo mầm xanh</b> – Nhạc và lời: Hoàng Sông Hương.</li>
+                    </ul>
+                </div>
+
+                <p style="margin-bottom: 20px;">
+                    Bên cạnh những ca khúc quen thuộc, website trân trọng giới thiệu hai sáng tác lời mới dành riêng cho nhà trường và mùa tri ân:
+                </p>
+
+                <!-- Lưới hiển thị 2 ca khúc sáng tác riêng -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    
+                    <!-- Bài hát 1 -->
+                    <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-top: 4px solid var(--primary); padding: 24px; border-radius: 12px;">
+                        <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 4px;">
+                            🎶 KHÚC HÁT DƯỚI MÁI TRƯỜNG NGUYỄN GIA THIỀU
+                        </h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-bottom: 15px;">
+                            Lời mới sáng tác dành riêng cho website nhà trường
+                        </p>
+                        <div style="font-size: 0.95rem; line-height: 1.8; color: #1e293b;">
+                            <p style="margin-bottom: 12px;">
+                                Dưới mái trường thân thương ngày ấy,<br>
+                                Tiếng trống vang gọi nắng sân trường.<br>
+                                Bao thế hệ cùng chung trang sách,<br>
+                                Viết nên bao kỷ niệm yêu thương.
+                            </p>
+                            <p style="margin-bottom: 12px;">
+                                Thầy cô như ánh đèn soi lối,<br>
+                                Dẫn chúng em qua những tháng ngày.<br>
+                                Từng bài giảng, từng lời nhắn nhủ,<br>
+                                Theo bước chân trên những đường dài.
+                            </p>
+                            <p style="margin-bottom: 12px; font-weight: 600; color: var(--primary);">
+                                <i>Điệp khúc:</i><br>
+                                Nguyễn Gia Thiều – mái trường yêu dấu,<br>
+                                Nơi ước mơ chắp cánh bay xa.<br>
+                                Dẫu mai này đi muôn phương hướng,<br>
+                                Vẫn nhớ về nơi ấy thiết tha.
+                            </p>
+                            <p style="margin-bottom: 0; font-weight: 600; color: var(--primary);">
+                                Nguyễn Gia Thiều – niềm tự hào ấy,<br>
+                                Bao thế hệ tiếp bước dựng xây.<br>
+                                Tình thầy cô, tình bạn năm tháng,<br>
+                                Sẽ còn mãi trong tim mỗi người.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Bài hát 2 -->
+                    <div style="background: #fffbeb; border: 1px solid #fde68a; border-top: 4px solid var(--accent); padding: 24px; border-radius: 12px;">
+                        <h3 style="color: #92400e; font-size: 1.15rem; margin-bottom: 4px;">
+                            🎶 THÁNG MƯỜI MỘT – LỜI CẢM ƠN
+                        </h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-bottom: 15px;">
+                            Lời mới sáng tác dành riêng cho chuyên mục 20/11
+                        </p>
+                        <div style="font-size: 0.95rem; line-height: 1.8; color: #1e293b;">
+                            <p style="margin-bottom: 12px;">
+                                Tháng mười một về trên trang vở,<br>
+                                Nắng sân trường nhẹ bước qua đây.<br>
+                                Có tiếng giảng ngân dài năm tháng,<br>
+                                Có bóng thầy cô giữa trời mây.
+                            </p>
+                            <p style="margin-bottom: 12px;">
+                                Bao yêu thương chưa thành câu nói,<br>
+                                Bao lời cảm ơn vẫn còn đây.<br>
+                                Xin gửi đến những người gieo chữ,<br>
+                                Một mùa tri ân đong đầy.
+                            </p>
+                            <p style="margin-bottom: 0; font-weight: 600; color: #92400e;">
+                                <i>Điệp khúc:</i><br>
+                                Cảm ơn thầy cô, người gieo hy vọng,<br>
+                                Cho chúng em đôi cánh ước mơ.<br>
+                                Dẫu mai xa mái trường yêu dấu,<br>
+                                Ơn thầy cô vẫn mãi không phai.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+       
+
