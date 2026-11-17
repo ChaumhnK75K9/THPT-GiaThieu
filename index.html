@@ -704,51 +704,64 @@
             </div>
         </div>
     </footer>
-   <canvas id="fireworks-canvas" style="position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; display: none;"></canvas>
+      <!-- KHUNG DẢI BĂNG 3 HUY HIỆU BÊN LỀ PHẢI -->
+    <div class="scout-sash-zone" id="scout-sash-zone">
+        <div class="scout-sash">
+            <div class="sash-tab">🎖️ HUY HIỆU</div>
+            <div class="merit-badge badge-firework" id="badge-firework" onclick="toggleBadge('firework')">
+                <span class="icon">🎆</span>
+                <span class="label">Pháo hoa</span>
+            </div>
+            <div class="merit-badge badge-fire" id="badge-fire" onclick="toggleBadge('fire')">
+                <span class="icon">🔥</span>
+                <span class="label">Bốc lửa</span>
+            </div>
+            <div class="merit-badge badge-flower" id="badge-flower" onclick="toggleBadge('flower')">
+                <span class="icon">🌸</span>
+                <span class="label">Tri ân</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- KHUNG VẼ HIỆU ỨNG & THÔNG BÁO CHÚC MỪNG -->
+    <canvas id="fx-canvas" style="position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></canvas>
     
-       <!-- THÔNG BÁO MỪNG CHIẾN THẮNG (GIỮ NGUYÊN BẢN CŨ) -->
     <div id="victory-toast" style="display: none; position: fixed; top: 80px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #0b3954, #185a82); color: #fde68a; border: 2px solid #f59e0b; padding: 14px 28px; border-radius: 30px; font-weight: 800; font-size: 1.05rem; z-index: 10000; box-shadow: 0 10px 30px rgba(0,0,0,0.4); text-align: center;">
         🎉 Chúc mừng bạn đã giải mã thành công Di sản NGT! 🎉
     </div>
 
+    <!-- MÃ XỬ LÝ PHÁO HOA & 3 HUY HIỆU -->
     <script>
-        let activeBadge = null; // Lưu huy hiệu đang bật: 'firework', 'fire', 'flower' hoặc null
-        let particles = [];
+        var activeBadge = null;
+        var particles = [];
+        var canvas = null;
+        var ctx = null;
 
-        // Thiết lập Canvas vẽ hiệu ứng
-        const canvas = document.getElementById('fx-canvas');
-        const ctx = canvas.getContext('2d');
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        // Hàm chuyển đổi Chọn / Bỏ chọn huy hiệu
+        // 1. Hàm bật/tắt khi bấm chọn từng Huy hiệu
         function toggleBadge(type) {
-            const allBadges = document.querySelectorAll('.merit-badge');
-            allBadges.forEach(b => b.classList.remove('active'));
-
+            var allBadges = document.querySelectorAll('.merit-badge');
+            for (var i = 0; i < allBadges.length; i++) {
+                allBadges[i].classList.remove('active');
+            }
             if (activeBadge === type) {
-                activeBadge = null; // Bấm lại vào huy hiệu đang chọn -> Bỏ chọn
+                activeBadge = null; // Bấm lại vào cái đang chọn thì tắt đi
             } else {
-                activeBadge = type; // Chọn huy hiệu mới
-                document.getElementById('badge-' + type).classList.add('active');
+                activeBadge = type;
+                var selected = document.getElementById('badge-' + type);
+                if (selected) selected.classList.add('active');
             }
         }
 
-        // --- CÁC HÀM TẠO HẠT HIỆU ỨNG ---
-        // 1. Hiệu ứng Pháo hoa (dùng cho cả lúc ăn mừng và lúc click chuột)
+        // 2. Tạo hạt Pháo hoa (Ăn mừng & Huy hiệu 1)
         function spawnFirework(x, y) {
-            const colors = ['#ff0043', '#14fc56', '#1e7fff', '#e60aff', '#ffbf36', '#ffffff', '#fde68a'];
-            const count = 65;
-            for (let i = 0; i < count; i++) {
-                const angle = (Math.PI * 2 / count) * i;
-                const speed = Math.random() * 5 + 2;
+            var colors = ['#ff0043', '#14fc56', '#1e7fff', '#e60aff', '#ffbf36', '#ffffff', '#fde68a'];
+            for (var i = 0; i < 65; i++) {
+                var angle = (Math.PI * 2 / 65) * i;
+                var speed = Math.random() * 5 + 2;
                 particles.push({
                     type: 'firework',
-                    x: x, y: y,
+                    x: x,
+                    y: y,
                     vx: Math.cos(angle) * speed,
                     vy: Math.sin(angle) * speed,
                     alpha: 1,
@@ -758,10 +771,10 @@
             }
         }
 
-        // 2. Hiệu ứng Bốc lửa (khi di chuột)
+        // 3. Tạo hạt Bốc lửa (Huy hiệu 2)
         function spawnFire(x, y) {
-            const fireColors = ['#ff4500', '#ff8c00', '#ffd700', '#ff0000'];
-            for (let i = 0; i < 3; i++) {
+            var fireColors = ['#ff4500', '#ff8c00', '#ffd700', '#ff0000'];
+            for (var i = 0; i < 3; i++) {
                 particles.push({
                     type: 'fire',
                     x: x + (Math.random() - 0.5) * 14,
@@ -775,13 +788,14 @@
             }
         }
 
-        // 3. Hiệu ứng Hoa tri ân & Bụi sao (khi di chuột)
+        // 4. Tạo hạt Hoa tri ân 20/11 (Huy hiệu 3)
         function spawnFlower(x, y) {
-            const icons = ['🌸', '🌼', '✨', '🍂'];
+            var icons = ['🌸', '🌼', '✨', '🍂'];
             if (Math.random() > 0.35) return;
             particles.push({
                 type: 'flower',
-                x: x, y: y,
+                x: x,
+                y: y,
                 vx: (Math.random() - 0.5) * 2,
                 vy: Math.random() * 1.5 + 0.8,
                 alpha: 1,
@@ -790,28 +804,13 @@
             });
         }
 
-        // Lắng nghe sự kiện Click chuột trên toàn trang
-        window.addEventListener('click', (e) => {
-            if (e.target.closest('.scout-sash-zone')) return;
-            if (activeBadge === 'firework') {
-                spawnFirework(e.clientX, e.clientY);
-            }
-        });
-
-        // Lắng nghe sự kiện Di chuyển chuột trên toàn trang
-        window.addEventListener('mousemove', (e) => {
-            if (activeBadge === 'fire') {
-                spawnFire(e.clientX, e.clientY);
-            } else if (activeBadge === 'flower') {
-                spawnFlower(e.clientX, e.clientY);
-            }
-        });
-
-        // Vòng lặp vẽ hiệu ứng liên tục (phục vụ cả pháo hoa ăn mừng lẫn 3 huy hiệu)
+        // 5. Vòng lặp vẽ hiệu ứng liên tục
         function animateFX() {
+            if (!ctx || !canvas) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = particles.length - 1; i >= 0; i--) {
-                let p = particles[i];
+
+            for (var i = particles.length - 1; i >= 0; i--) {
+                var p = particles[i];
                 p.x += p.vx;
                 p.y += p.vy;
 
@@ -845,49 +844,78 @@
             }
             requestAnimationFrame(animateFX);
         }
-        animateFX();
 
-        // --- KIỂM TRA ĐIỀU KIỆN CHIẾN THẮNG TỪ TRANG GAME ---
-        (function initVictoryState() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const justWon = urlParams.get('victory') === '1';
+        // 6. Khởi chạy toàn bộ hệ thống sau khi trang tải xong
+        window.addEventListener('DOMContentLoaded', function() {
+            canvas = document.getElementById('fx-canvas');
+            ctx = canvas.getContext('2d');
 
-            if (justWon) {
-                // Lưu trạng thái đã mở khóa dải băng huy hiệu
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Bắt đầu vòng lặp vẽ
+            animateFX();
+
+            // Lắng nghe sự kiện Click & Di chuột cho 3 Huy hiệu
+            window.addEventListener('click', function(e) {
+                if (e.target && e.target.closest && e.target.closest('.scout-sash-zone')) return;
+                if (activeBadge === 'firework') {
+                    spawnFirework(e.clientX, e.clientY);
+                }
+            });
+
+            window.addEventListener('mousemove', function(e) {
+                if (activeBadge === 'fire') {
+                    spawnFire(e.clientX, e.clientY);
+                } else if (activeBadge === 'flower') {
+                    spawnFlower(e.clientX, e.clientY);
+                }
+            });
+
+            // Kiểm tra điều kiện chiến thắng từ trang Game (?victory=1)
+            var hasVictoryParam = window.location.search.indexOf('victory=1') !== -1;
+
+            if (hasVictoryParam) {
+                // Lưu trạng thái mở khóa vĩnh viễn trên trình duyệt này
                 localStorage.setItem('ngt_scout_unlocked', 'true');
-                // Xóa tham số ?victory=1 trên thanh địa chỉ
-                window.history.replaceState({}, document.title, window.location.pathname);
 
-                // Hiện dòng thông báo chúc mừng cũ
-                const toast = document.getElementById('victory-toast');
-                toast.style.display = 'block';
+                // Xóa ?victory=1 trên thanh địa chỉ để F5 không nổ lại
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
 
-                // Bắn ngay 2 quả pháo hoa đầu tiên lúc vừa chuyển trang
+                // Hiện thông báo chúc mừng
+                var toast = document.getElementById('victory-toast');
+                if (toast) toast.style.display = 'block';
+
+                // Bắn 2 quả pháo hoa đầu tiên ngay lập tức
                 spawnFirework(canvas.width * 0.3, canvas.height * 0.3);
                 spawnFirework(canvas.width * 0.7, canvas.height * 0.25);
 
-                // Bắn pháo hoa ăn mừng liên tục mỗi 0.45 giây
-                let shootInterval = setInterval(() => {
-                    const randomX = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
-                    const randomY = Math.random() * (canvas.height * 0.45) + canvas.height * 0.1;
+                // Bắn pháo hoa ăn mừng liên tục trong 6.5 giây
+                var shootInterval = setInterval(function() {
+                    var randomX = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
+                    var randomY = Math.random() * (canvas.height * 0.45) + canvas.height * 0.1;
                     spawnFirework(randomX, randomY);
                 }, 450);
 
-                // Tự động tắt pháo hoa tự động và dòng thông báo sau 6.5 giây (vẫn giữ canvas hoạt động cho 3 huy hiệu)
-                setTimeout(() => {
+                // Dừng bắn tự động và ẩn thông báo sau 6.5 giây
+                setTimeout(function() {
                     clearInterval(shootInterval);
-                    toast.style.display = 'none';
+                    if (toast) toast.style.display = 'none';
                 }, 6500);
             }
 
-            // Hiển thị Dải băng 3 Huy hiệu ở cạnh phải màn hình
-            if (justWon || localStorage.getItem('ngt_scout_unlocked') === 'true') {
-                document.getElementById('scout-sash-zone').style.display = 'block';
+            // Hiển thị Dải băng 3 Huy hiệu ở cạnh phải nếu đã chiến thắng
+            if (hasVictoryParam || localStorage.getItem('ngt_scout_unlocked') === 'true') {
+                var sashZone = document.getElementById('scout-sash-zone');
+                if (sashZone) sashZone.style.display = 'block';
             }
-        })();
+        });
     </script>
 </body>
-
-    
-       
-
+</html>
