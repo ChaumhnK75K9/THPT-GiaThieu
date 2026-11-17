@@ -591,103 +591,188 @@
     </footer>
    <canvas id="fireworks-canvas" style="position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; display: none;"></canvas>
     
+       <!-- THÔNG BÁO MỪNG CHIẾN THẮNG (GIỮ NGUYÊN BẢN CŨ) -->
     <div id="victory-toast" style="display: none; position: fixed; top: 80px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #0b3954, #185a82); color: #fde68a; border: 2px solid #f59e0b; padding: 14px 28px; border-radius: 30px; font-weight: 800; font-size: 1.05rem; z-index: 10000; box-shadow: 0 10px 30px rgba(0,0,0,0.4); text-align: center;">
         🎉 Chúc mừng bạn đã giải mã thành công Di sản NGT! 🎉
     </div>
 
     <script>
-        (function() {
-            // 1. Kiểm tra điều kiện: Phải có tham số ?victory=1 từ trang game chuyển sang
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('victory') !== '1') return;
+        let activeBadge = null; // Lưu huy hiệu đang bật: 'firework', 'fire', 'flower' hoặc null
+        let particles = [];
 
-            // Xóa tham số trên thanh địa chỉ để nếu người dùng tự F5 lại trang sẽ không bị nổ lặp lại
-            window.history.replaceState({}, document.title, window.location.pathname);
-
-            // 2. Hiển thị thông báo chúc mừng & bật màn vẽ pháo hoa
-            const canvas = document.getElementById('fireworks-canvas');
-            const toast = document.getElementById('victory-toast');
-            canvas.style.display = 'block';
-            toast.style.display = 'block';
-
-            const ctx = canvas.getContext('2d');
+        // Thiết lập Canvas vẽ hiệu ứng
+        const canvas = document.getElementById('fx-canvas');
+        const ctx = canvas.getContext('2d');
+        function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
+        // Hàm chuyển đổi Chọn / Bỏ chọn huy hiệu
+        function toggleBadge(type) {
+            const allBadges = document.querySelectorAll('.merit-badge');
+            allBadges.forEach(b => b.classList.remove('active'));
 
-            let particles = [];
-            const colors = ['#ff0043', '#14fc56', '#1e7fff', '#e60aff', '#ffbf36', '#ffffff', '#fde68a'];
-
-            function createFirework(x, y) {
-                const count = 65; // Số tia lửa mỗi quả pháo
-                for (let i = 0; i < count; i++) {
-                    const angle = (Math.PI * 2 / count) * i;
-                    const speed = Math.random() * 5 + 2;
-                    particles.push({
-                        x: x,
-                        y: y,
-                        vx: Math.cos(angle) * speed,
-                        vy: Math.sin(angle) * speed,
-                        alpha: 1,
-                        color: colors[Math.floor(Math.random() * colors.length)],
-                        size: Math.random() * 3 + 1.5
-                    });
-                }
+            if (activeBadge === type) {
+                activeBadge = null; // Bấm lại vào huy hiệu đang chọn -> Bỏ chọn
+            } else {
+                activeBadge = type; // Chọn huy hiệu mới
+                document.getElementById('badge-' + type).classList.add('active');
             }
+        }
 
-            // Bắn ngẫu nhiên các quả pháo hoa trong 6 giây đầu
-            let shootInterval = setInterval(() => {
-                const randomX = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
-                const randomY = Math.random() * (canvas.height * 0.45) + canvas.height * 0.1;
-                createFirework(randomX, randomY);
-            }, 450);
+        // --- CÁC HÀM TẠO HẠT HIỆU ỨNG ---
+        // 1. Hiệu ứng Pháo hoa (dùng cho cả lúc ăn mừng và lúc click chuột)
+        function spawnFirework(x, y) {
+            const colors = ['#ff0043', '#14fc56', '#1e7fff', '#e60aff', '#ffbf36', '#ffffff', '#fde68a'];
+            const count = 65;
+            for (let i = 0; i < count; i++) {
+                const angle = (Math.PI * 2 / count) * i;
+                const speed = Math.random() * 5 + 2;
+                particles.push({
+                    type: 'firework',
+                    x: x, y: y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    alpha: 1,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    size: Math.random() * 3 + 1.5
+                });
+            }
+        }
 
-            // Bắn ngay 2 quả đầu tiên lúc vừa chuyển trang
-            createFirework(canvas.width * 0.3, canvas.height * 0.3);
-            createFirework(canvas.width * 0.7, canvas.height * 0.25);
+        // 2. Hiệu ứng Bốc lửa (khi di chuột)
+        function spawnFire(x, y) {
+            const fireColors = ['#ff4500', '#ff8c00', '#ffd700', '#ff0000'];
+            for (let i = 0; i < 3; i++) {
+                particles.push({
+                    type: 'fire',
+                    x: x + (Math.random() - 0.5) * 14,
+                    y: y + (Math.random() - 0.5) * 10,
+                    vx: (Math.random() - 0.5) * 1.5,
+                    vy: -(Math.random() * 2.5 + 1.5),
+                    alpha: 1,
+                    color: fireColors[Math.floor(Math.random() * fireColors.length)],
+                    size: Math.random() * 6 + 3
+                });
+            }
+        }
 
-            // Vòng lặp vẽ hiệu ứng pháo hoa rơi
-            let animationId;
-            function animateFireworks() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let i = particles.length - 1; i >= 0; i--) {
-                    let p = particles[i];
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    p.vy += 0.06; // Trọng lực kéo tia lửa rơi xuống
-                    p.alpha -= 0.015; // Mờ dần
+        // 3. Hiệu ứng Hoa tri ân & Bụi sao (khi di chuột)
+        function spawnFlower(x, y) {
+            const icons = ['🌸', '🌼', '✨', '🍂'];
+            if (Math.random() > 0.35) return;
+            particles.push({
+                type: 'flower',
+                x: x, y: y,
+                vx: (Math.random() - 0.5) * 2,
+                vy: Math.random() * 1.5 + 0.8,
+                alpha: 1,
+                icon: icons[Math.floor(Math.random() * icons.length)],
+                size: Math.random() * 10 + 12
+            });
+        }
 
-                    if (p.alpha <= 0) {
-                        particles.splice(i, 1);
+        // Lắng nghe sự kiện Click chuột trên toàn trang
+        window.addEventListener('click', (e) => {
+            if (e.target.closest('.scout-sash-zone')) return;
+            if (activeBadge === 'firework') {
+                spawnFirework(e.clientX, e.clientY);
+            }
+        });
+
+        // Lắng nghe sự kiện Di chuyển chuột trên toàn trang
+        window.addEventListener('mousemove', (e) => {
+            if (activeBadge === 'fire') {
+                spawnFire(e.clientX, e.clientY);
+            } else if (activeBadge === 'flower') {
+                spawnFlower(e.clientX, e.clientY);
+            }
+        });
+
+        // Vòng lặp vẽ hiệu ứng liên tục (phục vụ cả pháo hoa ăn mừng lẫn 3 huy hiệu)
+        function animateFX() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.type === 'firework') {
+                    p.vy += 0.06;
+                    p.alpha -= 0.015;
+                } else if (p.type === 'fire') {
+                    p.size *= 0.95;
+                    p.alpha -= 0.035;
+                } else if (p.type === 'flower') {
+                    p.x += Math.sin(p.y * 0.05) * 0.8;
+                    p.alpha -= 0.015;
+                }
+
+                if (p.alpha <= 0 || p.size <= 0.4) {
+                    particles.splice(i, 1);
+                } else {
+                    ctx.save();
+                    ctx.globalAlpha = p.alpha;
+                    if (p.type === 'flower') {
+                        ctx.font = p.size + 'px Arial';
+                        ctx.fillText(p.icon, p.x, p.y);
                     } else {
-                        ctx.globalAlpha = p.alpha;
                         ctx.fillStyle = p.color;
                         ctx.beginPath();
                         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                         ctx.fill();
                     }
+                    ctx.restore();
                 }
-                animationId = requestAnimationFrame(animateFireworks);
             }
-            animateFireworks();
+            requestAnimationFrame(animateFX);
+        }
+        animateFX();
 
-            // Tự động dừng và dọn sạch màn hình sau 7 giây
-            setTimeout(() => {
-                clearInterval(shootInterval);
-                toast.style.display = 'none';
+        // --- KIỂM TRA ĐIỀU KIỆN CHIẾN THẮNG TỪ TRANG GAME ---
+        (function initVictoryState() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const justWon = urlParams.get('victory') === '1';
+
+            if (justWon) {
+                // Lưu trạng thái đã mở khóa dải băng huy hiệu
+                localStorage.setItem('ngt_scout_unlocked', 'true');
+                // Xóa tham số ?victory=1 trên thanh địa chỉ
+                window.history.replaceState({}, document.title, window.location.pathname);
+
+                // Hiện dòng thông báo chúc mừng cũ
+                const toast = document.getElementById('victory-toast');
+                toast.style.display = 'block';
+
+                // Bắn ngay 2 quả pháo hoa đầu tiên lúc vừa chuyển trang
+                spawnFirework(canvas.width * 0.3, canvas.height * 0.3);
+                spawnFirework(canvas.width * 0.7, canvas.height * 0.25);
+
+                // Bắn pháo hoa ăn mừng liên tục mỗi 0.45 giây
+                let shootInterval = setInterval(() => {
+                    const randomX = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
+                    const randomY = Math.random() * (canvas.height * 0.45) + canvas.height * 0.1;
+                    spawnFirework(randomX, randomY);
+                }, 450);
+
+                // Tự động tắt pháo hoa tự động và dòng thông báo sau 6.5 giây (vẫn giữ canvas hoạt động cho 3 huy hiệu)
                 setTimeout(() => {
-                    cancelAnimationFrame(animationId);
-                    canvas.style.display = 'none';
-                }, 1500);
-            }, 6500);
+                    clearInterval(shootInterval);
+                    toast.style.display = 'none';
+                }, 6500);
+            }
+
+            // Hiển thị Dải băng 3 Huy hiệu ở cạnh phải màn hình
+            if (justWon || localStorage.getItem('ngt_scout_unlocked') === 'true') {
+                document.getElementById('scout-sash-zone').style.display = 'block';
+            }
         })();
     </script>
 </body>
-</html>
+
     
        
 
