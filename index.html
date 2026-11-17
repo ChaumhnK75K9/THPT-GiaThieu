@@ -126,121 +126,9 @@
 
         footer { background: var(--primary); color: #e2e8f0; text-align: center; padding: 28px 20px; border-top: 4px solid var(--accent); }
         @media (max-width: 768px) { .hero h1 { font-size: 2rem; } }
-          /* Vùng cảm ứng ở mép phải màn hình */
-        .scout-sash-zone {
-            position: fixed;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 9998;
-            padding: 20px 0 20px 25px; /* Mở rộng vùng nhận chuột sang trái một chút */
-            display: none; /* Mặc định ẩn, chỉ hiện sau khi chiến thắng */
-        }
+        
 
-        /* Dải băng vải cắm trại */
-        .scout-sash {
-            background: linear-gradient(180deg, #5c4033, #3e2723);
-            border: 3px solid #d97706;
-            border-right: none;
-            border-radius: 20px 0 0 20px;
-            padding: 16px 14px 16px 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-            box-shadow: -5px 8px 25px rgba(0, 0, 0, 0.45);
-            /* Bình thường thu gọn sát mép phải, chỉ lộ mép viền vàng */
-            transform: translateX(72%);
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-            position: relative;
-        }
-
-        /* Nhãn chỉ dẫn nhỏ ở mép ngoài */
-        .sash-tab {
-            position: absolute;
-            left: -26px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #d97706;
-            color: #fff;
-            padding: 10px 5px;
-            border-radius: 10px 0 0 10px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            box-shadow: -3px 0 10px rgba(0,0,0,0.3);
-            cursor: pointer;
-        }
-
-        /* Đưa chuột tới vùng bên phải thì trượt dải băng ra */
-        .scout-sash-zone:hover .scout-sash {
-            transform: translateX(0);
-        }
-
-        /* Từng nút huy hiệu thêu tròn */
-        .merit-badge {
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            border: 3px dashed #fde68a; /* Viền chỉ thêu đặc trưng */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.25s ease;
-            box-shadow: inset 0 0 8px rgba(0,0,0,0.4), 0 4px 10px rgba(0,0,0,0.3);
-            user-select: none;
-        }
-
-        .merit-badge:hover {
-            transform: scale(1.1);
-        }
-
-        /* Màu sắc riêng cho 3 huy hiệu */
-        .badge-firework { background: radial-gradient(circle, #1e3a8a, #0f172a); }
-        .badge-fire     { background: radial-gradient(circle, #9a3412, #450a0a); }
-        .badge-flower   { background: radial-gradient(circle, #854d0e, #422006); }
-
-        .merit-badge span.icon {
-            font-size: 1.5rem;
-            line-height: 1;
-        }
-
-        .merit-badge span.label {
-            font-size: 0.6rem;
-            color: #fef3c7;
-            font-weight: 700;
-            margin-top: 2px;
-            text-transform: uppercase;
-        }
-
-        /* Trạng thái ĐANG CHỌN huy hiệu */
-        .merit-badge.active {
-            border: 3px solid #10b981;
-            box-shadow: 0 0 16px #10b981, inset 0 0 10px rgba(16, 185, 129, 0.5);
-            transform: scale(1.12);
-        }
-
-        .merit-badge.active::after {
-            content: '✔';
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            background: #10b981;
-            color: white;
-            font-size: 0.65rem;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            border: 1.5px solid white;
-        }
+      
     </style>
 </head>
 <body>
@@ -705,25 +593,167 @@
         </div>
     </footer>
       <!-- KHUNG DẢI BĂNG 3 HUY HIỆU BÊN LỀ PHẢI -->
+     <style>
+        .scout-sash-zone {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 9998;
+            padding: 15px 0 15px 30px;
+            display: none;
+        }
+        .scout-sash {
+            background: linear-gradient(180deg, #5c4033, #3e2723);
+            border: 3px solid #d97706;
+            border-right: none;
+            border-radius: 20px 0 0 20px;
+            padding: 14px 12px 14px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            box-shadow: -5px 8px 25px rgba(0, 0, 0, 0.45);
+            transform: translateX(78%);
+            transition: transform 0.35s ease;
+            position: relative;
+        }
+        .sash-tab {
+            position: absolute;
+            left: -28px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #d97706;
+            color: #fff;
+            padding: 12px 6px;
+            border-radius: 10px 0 0 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            writing-mode: vertical-rl;
+            cursor: pointer;
+            box-shadow: -3px 0 10px rgba(0,0,0,0.3);
+        }
+        .scout-sash-zone:hover .scout-sash {
+            transform: translateX(0);
+        }
+        /* Hiển thị số cúp ở đầu dải băng */
+        .trophy-counter {
+            background: #0f172a;
+            color: #fbbf24;
+            border: 1.5px solid #f59e0b;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.82rem;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+        /* Lưới 3 cột x 3 hàng cho 9 huy hiệu */
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .merit-badge {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: 2.5px dashed #fde68a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            transition: 0.25s;
+            user-select: none;
+            background: radial-gradient(circle, #1e3a8a, #0f172a);
+        }
+        .merit-badge:hover:not(.locked) { transform: scale(1.1); }
+        .merit-badge span.icon { font-size: 1.35rem; line-height: 1; }
+        .merit-badge span.label { font-size: 0.55rem; color: #fef3c7; font-weight: 700; margin-top: 2px; text-align: center; }
+
+        /* Màu nền riêng từng nhóm */
+        .b-g1 { background: radial-gradient(circle, #1e3a8a, #0f172a); }
+        .b-g2 { background: radial-gradient(circle, #065f46, #022c22); }
+        .b-g3 { background: radial-gradient(circle, #6b21a8, #2e1065); }
+
+        /* Trạng thái BỊ KHÓA */
+        .merit-badge.locked {
+            background: #1e293b;
+            border: 2px dashed #475569;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .merit-badge.locked span.icon { filter: grayscale(100%); opacity: 0.4; }
+
+        /* Trạng thái ĐANG CHỌN */
+        .merit-badge.active {
+            border: 3px solid #10b981;
+            box-shadow: 0 0 15px #10b981;
+            transform: scale(1.12);
+        }
+        .merit-badge.active::after {
+            content: '✔';
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #10b981;
+            color: white;
+            font-size: 0.6rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+    </style>
+
+    <!-- 2. KHUNG HTML DẢI BĂNG 9 HUY HIỆU -->
     <div class="scout-sash-zone" id="scout-sash-zone">
         <div class="scout-sash">
             <div class="sash-tab">🎖️ HUY HIỆU</div>
-            <div class="merit-badge badge-firework" id="badge-firework" onclick="toggleBadge('firework')">
-                <span class="icon">🎆</span>
-                <span class="label">Pháo hoa</span>
-            </div>
-            <div class="merit-badge badge-fire" id="badge-fire" onclick="toggleBadge('fire')">
-                <span class="icon">🔥</span>
-                <span class="label">Bốc lửa</span>
-            </div>
-            <div class="merit-badge badge-flower" id="badge-flower" onclick="toggleBadge('flower')">
-                <span class="icon">🌸</span>
-                <span class="label">Tri ân</span>
+            <div class="trophy-counter" id="trophy-display">🏆 0 Cúp</div>
+            
+            <div class="badges-grid">
+                <!-- Nhóm 1: Mở khi đạt 1 Cúp -->
+                <div class="merit-badge b-g1 locked" id="badge-firework" data-req="1" onclick="toggleBadge('firework', 1)" title="Cần 1 Cúp: Click nổ pháo hoa">
+                    <span class="icon">🎆</span><span class="label">Pháo hoa</span>
+                </div>
+                <div class="merit-badge b-g1 locked" id="badge-fire" data-req="1" onclick="toggleBadge('fire', 1)" title="Cần 1 Cúp: Di chuột bốc lửa">
+                    <span class="icon">🔥</span><span class="label">Bốc lửa</span>
+                </div>
+                <div class="merit-badge b-g1 locked" id="badge-flower" data-req="1" onclick="toggleBadge('flower', 1)" title="Cần 1 Cúp: Di chuột rắc hoa 20/11">
+                    <span class="icon">🌸</span><span class="label">Tri ân</span>
+                </div>
+
+                <!-- Nhóm 2: Mở khi đạt 3 Cúp -->
+                <div class="merit-badge b-g2 locked" id="badge-books" data-req="3" onclick="toggleBadge('books', 3)" title="Cần 3 Cúp: Di chuột bay sách vở">
+                    <span class="icon">📚</span><span class="label">Sách vở</span>
+                </div>
+                <div class="merit-badge b-g2 locked" id="badge-lightning" data-req="3" onclick="toggleBadge('lightning', 3)" title="Cần 3 Cúp: Click giáng tia sét">
+                    <span class="icon">⚡</span><span class="label">Tia sét</span>
+                </div>
+                <div class="merit-badge b-g2 locked" id="badge-pen" data-req="3" onclick="toggleBadge('pen', 3)" title="Cần 3 Cúp: Nhấn giữ chuột viết mực, thả ra tự xóa">
+                    <span class="icon">🖋️</span><span class="label">Bút viết</span>
+                </div>
+
+                <!-- Nhóm 3: Mở khi đạt 6 Cúp -->
+                <div class="merit-badge b-g3 locked" id="badge-snow" data-req="6" onclick="toggleBadge('snow', 6)" title="Cần 6 Cúp: Di chuột rơi tuyết trắng">
+                    <span class="icon">❄️</span><span class="label">Tuyết rơi</span>
+                </div>
+                <div class="merit-badge b-g3 locked" id="badge-bubble" data-req="6" onclick="toggleBadge('bubble', 6)" title="Cần 6 Cúp: Di chuột thổi bong bóng">
+                    <span class="icon">🫧</span><span class="label">Bong bóng</span>
+                </div>
+                <div class="merit-badge b-g3 locked" id="badge-star" data-req="6" onclick="toggleBadge('star', 6)" title="Cần 6 Cúp: Di chuột vẽ bụi sao">
+                    <span class="icon">🌟</span><span class="label">Bụi sao</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- KHUNG VẼ HIỆU ỨNG & THÔNG BÁO CHÚC MỪNG -->
+    <!-- 3. KHUNG VẼ HIỆU ỨNG & THÔNG BÁO CHÚC MỪNG -->
     <canvas id="fx-canvas" style="position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></canvas>
     
     <div id="victory-toast" style="display: none; position: fixed; top: 80px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #0b3954, #185a82); color: #fde68a; border: 2px solid #f59e0b; padding: 14px 28px; border-radius: 30px; font-weight: 800; font-size: 1.05rem; z-index: 10000; box-shadow: 0 10px 30px rgba(0,0,0,0.4); text-align: center;">
@@ -731,191 +761,182 @@
     </div>
 
     <!-- MÃ XỬ LÝ PHÁO HOA & 3 HUY HIỆU -->
-    <script>
-        var activeBadge = null;
-        var particles = [];
-        var canvas = null;
-        var ctx = null;
+  <script>
+    var activeBadge = null;
+    var particles = [];
+    var lightningBolts = [];
+    var inkStrokes = [];
+    var isDrawingPen = false;
+    var currentStroke = null;
+    var canvas = null;
+    var ctx = null;
+    var totalTrophies = parseInt(localStorage.getItem('ngt_trophies')) || 0;
 
-        // 1. Hàm bật/tắt khi bấm chọn từng Huy hiệu
-        function toggleBadge(type) {
-            var allBadges = document.querySelectorAll('.merit-badge');
-            for (var i = 0; i < allBadges.length; i++) {
-                allBadges[i].classList.remove('active');
-            }
-            if (activeBadge === type) {
-                activeBadge = null; // Bấm lại vào cái đang chọn thì tắt đi
-            } else {
-                activeBadge = type;
-                var selected = document.getElementById('badge-' + type);
-                if (selected) selected.classList.add('active');
+    function updateTrophyUI() {
+        var display = document.getElementById('trophy-display');
+        if (display) display.textContent = '🏆 ' + totalTrophies + ' Cúp (Mốc: 1 - 3 - 6)';
+        var badges = document.querySelectorAll('.merit-badge');
+        for (var i = 0; i < badges.length; i++) {
+            var req = parseInt(badges[i].getAttribute('data-req'));
+            if (totalTrophies >= req) badges[i].classList.remove('locked');
+        }
+    }
+
+    function toggleBadge(type, req) {
+        if (totalTrophies < req) {
+            alert('🔒 Cần đủ ' + req + ' Cúp để mở khóa! (Hiện có: ' + totalTrophies + ' Cúp)');
+            return;
+        }
+        var all = document.querySelectorAll('.merit-badge');
+        for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
+        if (activeBadge === type) {
+            activeBadge = null;
+            document.body.style.userSelect = '';
+        } else {
+            activeBadge = type;
+            document.getElementById('badge-' + type).classList.add('active');
+            document.body.style.userSelect = (type === 'pen') ? 'none' : '';
+        }
+    }
+
+    function spawnFirework(x, y) {
+        var colors = ['#ff0043', '#14fc56', '#1e7fff', '#e60aff', '#ffbf36', '#ffffff'];
+        for (var i = 0; i < 60; i++) {
+            var a = (Math.PI * 2 / 60) * i, s = Math.random() * 5 + 2;
+            particles.push({ type: 'fw', x: x, y: y, vx: Math.cos(a)*s, vy: Math.sin(a)*s, alpha: 1, color: colors[i % colors.length], size: 2.5 });
+        }
+    }
+
+    function spawnFire(x, y) {
+        var c = ['#ff4500', '#ff8c00', '#ffd700'];
+        for (var i = 0; i < 3; i++) {
+            particles.push({ type: 'fire', x: x + (Math.random()-0.5)*12, y: y, vx: (Math.random()-0.5)*1.5, vy: -(Math.random()*2.5+1.5), alpha: 1, color: c[i%3], size: 7 });
+        }
+    }
+
+    function spawnEmoji(x, y, icons, vy) {
+        if (Math.random() > 0.35) return;
+        particles.push({ type: 'emoji', x: x, y: y, vx: (Math.random()-0.5)*2, vy: vy, alpha: 1, icon: icons[Math.floor(Math.random()*icons.length)], size: 18 });
+    }
+
+    function spawnLightning(tx, ty) {
+        var segs = [], cx = tx + (Math.random()-0.5)*100, cy = 0;
+        segs.push({ x: cx, y: cy });
+        while (cy < ty) {
+            cy = Math.min(ty, cy + Math.random()*25 + 15);
+            cx = (cy === ty) ? tx : cx + (Math.random()-0.5)*45;
+            segs.push({ x: cx, y: cy });
+        }
+        lightningBolts.push({ segments: segs, alpha: 1 });
+    }
+
+    function spawnBubble(x, y) {
+        if (Math.random() > 0.4) return;
+        particles.push({ type: 'bubble', x: x, y: y, vx: (Math.random()-0.5)*1.5, vy: -(Math.random()*2+1), alpha: 0.9, size: Math.random()*8+6 });
+    }
+    function animateFX() {
+        if (!ctx || !canvas) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (var s = inkStrokes.length - 1; s >= 0; s--) {
+            var st = inkStrokes[s];
+            if (!st.isDrawing) st.alpha -= 0.025;
+            if (st.alpha <= 0) { inkStrokes.splice(s, 1); continue; }
+            if (st.points.length > 1) {
+                ctx.save(); ctx.globalAlpha = st.alpha; ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 4; ctx.lineCap = 'round';
+                ctx.beginPath(); ctx.moveTo(st.points[0].x, st.points[0].y);
+                for (var j = 1; j < st.points.length; j++) ctx.lineTo(st.points[j].x, st.points[j].y);
+                ctx.stroke(); ctx.restore();
             }
         }
 
-        // 2. Tạo hạt Pháo hoa (Ăn mừng & Huy hiệu 1)
-        function spawnFirework(x, y) {
-            var colors = ['#ff0043', '#14fc56', '#1e7fff', '#e60aff', '#ffbf36', '#ffffff', '#fde68a'];
-            for (var i = 0; i < 65; i++) {
-                var angle = (Math.PI * 2 / 65) * i;
-                var speed = Math.random() * 5 + 2;
-                particles.push({
-                    type: 'firework',
-                    x: x,
-                    y: y,
-                    vx: Math.cos(angle) * speed,
-                    vy: Math.sin(angle) * speed,
-                    alpha: 1,
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    size: Math.random() * 3 + 1.5
-                });
-            }
+        for (var l = lightningBolts.length - 1; l >= 0; l--) {
+            var b = lightningBolts[l];
+            b.alpha -= 0.06;
+            if (b.alpha <= 0) { lightningBolts.splice(l, 1); continue; }
+            ctx.save(); ctx.globalAlpha = b.alpha; ctx.strokeStyle = '#e0f2fe'; ctx.lineWidth = 3.5; ctx.shadowColor = '#0284c7'; ctx.shadowBlur = 15;
+            ctx.beginPath(); ctx.moveTo(b.segments[0].x, b.segments[0].y);
+            for (var k = 1; k < b.segments.length; k++) ctx.lineTo(b.segments[k].x, b.segments[k].y);
+            ctx.stroke(); ctx.restore();
         }
 
-        // 3. Tạo hạt Bốc lửa (Huy hiệu 2)
-        function spawnFire(x, y) {
-            var fireColors = ['#ff4500', '#ff8c00', '#ffd700', '#ff0000'];
-            for (var i = 0; i < 3; i++) {
-                particles.push({
-                    type: 'fire',
-                    x: x + (Math.random() - 0.5) * 14,
-                    y: y + (Math.random() - 0.5) * 10,
-                    vx: (Math.random() - 0.5) * 1.5,
-                    vy: -(Math.random() * 2.5 + 1.5),
-                    alpha: 1,
-                    color: fireColors[Math.floor(Math.random() * fireColors.length)],
-                    size: Math.random() * 6 + 3
-                });
-            }
+        for (var i = particles.length - 1; i >= 0; i--) {
+            var p = particles[i];
+            p.x += p.vx; p.y += p.vy;
+            if (p.type === 'fw') { p.vy += 0.06; p.alpha -= 0.015; }
+            else if (p.type === 'fire') { p.size *= 0.95; p.alpha -= 0.035; }
+            else { p.alpha -= 0.015; }
+
+            if (p.alpha <= 0 || p.size <= 0.4) { particles.splice(i, 1); continue; }
+            ctx.save(); ctx.globalAlpha = p.alpha;
+            if (p.type === 'emoji') { ctx.font = p.size + 'px Arial'; ctx.fillText(p.icon, p.x, p.y); }
+            else if (p.type === 'bubble') { ctx.strokeStyle = '#7dd3fc'; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.stroke(); }
+            else { ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill(); }
+            ctx.restore();
         }
+        requestAnimationFrame(animateFX);
+    }
 
-        // 4. Tạo hạt Hoa tri ân 20/11 (Huy hiệu 3)
-        function spawnFlower(x, y) {
-            var icons = ['🌸', '🌼', '✨', '🍂'];
-            if (Math.random() > 0.35) return;
-            particles.push({
-                type: 'flower',
-                x: x,
-                y: y,
-                vx: (Math.random() - 0.5) * 2,
-                vy: Math.random() * 1.5 + 0.8,
-                alpha: 1,
-                icon: icons[Math.floor(Math.random() * icons.length)],
-                size: Math.random() * 10 + 12
-            });
-        }
+    window.addEventListener('DOMContentLoaded', function() {
+        canvas = document.getElementById('fx-canvas');
+        ctx = canvas.getContext('2d');
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resize(); window.addEventListener('resize', resize);
+        animateFX();
 
-        // 5. Vòng lặp vẽ hiệu ứng liên tục
-        function animateFX() {
-            if (!ctx || !canvas) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        window.addEventListener('click', function(e) {
+            if (e.target.closest && e.target.closest('.scout-sash-zone')) return;
+            if (activeBadge === 'firework') spawnFirework(e.clientX, e.clientY);
+            if (activeBadge === 'lightning') spawnLightning(e.clientX, e.clientY);
+        });
 
-            for (var i = particles.length - 1; i >= 0; i--) {
-                var p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-
-                if (p.type === 'firework') {
-                    p.vy += 0.06;
-                    p.alpha -= 0.015;
-                } else if (p.type === 'fire') {
-                    p.size *= 0.95;
-                    p.alpha -= 0.035;
-                } else if (p.type === 'flower') {
-                    p.x += Math.sin(p.y * 0.05) * 0.8;
-                    p.alpha -= 0.015;
-                }
-
-                if (p.alpha <= 0 || p.size <= 0.4) {
-                    particles.splice(i, 1);
-                } else {
-                    ctx.save();
-                    ctx.globalAlpha = p.alpha;
-                    if (p.type === 'flower') {
-                        ctx.font = p.size + 'px Arial';
-                        ctx.fillText(p.icon, p.x, p.y);
-                    } else {
-                        ctx.fillStyle = p.color;
-                        ctx.beginPath();
-                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                    ctx.restore();
-                }
-            }
-            requestAnimationFrame(animateFX);
-        }
-
-        // 6. Khởi chạy toàn bộ hệ thống sau khi trang tải xong
-        window.addEventListener('DOMContentLoaded', function() {
-            canvas = document.getElementById('fx-canvas');
-            ctx = canvas.getContext('2d');
-
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            // Bắt đầu vòng lặp vẽ
-            animateFX();
-
-            // Lắng nghe sự kiện Click & Di chuột cho 3 Huy hiệu
-            window.addEventListener('click', function(e) {
-                if (e.target && e.target.closest && e.target.closest('.scout-sash-zone')) return;
-                if (activeBadge === 'firework') {
-                    spawnFirework(e.clientX, e.clientY);
-                }
-            });
-
-            window.addEventListener('mousemove', function(e) {
-                if (activeBadge === 'fire') {
-                    spawnFire(e.clientX, e.clientY);
-                } else if (activeBadge === 'flower') {
-                    spawnFlower(e.clientX, e.clientY);
-                }
-            });
-
-            // Kiểm tra điều kiện chiến thắng từ trang Game (?victory=1)
-            var hasVictoryParam = window.location.search.indexOf('victory=1') !== -1;
-
-            if (hasVictoryParam) {
-                // Lưu trạng thái mở khóa vĩnh viễn trên trình duyệt này
-                localStorage.setItem('ngt_scout_unlocked', 'true');
-
-                // Xóa ?victory=1 trên thanh địa chỉ để F5 không nổ lại
-                if (window.history && window.history.replaceState) {
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                }
-
-                // Hiện thông báo chúc mừng
-                var toast = document.getElementById('victory-toast');
-                if (toast) toast.style.display = 'block';
-
-                // Bắn 2 quả pháo hoa đầu tiên ngay lập tức
-                spawnFirework(canvas.width * 0.3, canvas.height * 0.3);
-                spawnFirework(canvas.width * 0.7, canvas.height * 0.25);
-
-                // Bắn pháo hoa ăn mừng liên tục trong 6.5 giây
-                var shootInterval = setInterval(function() {
-                    var randomX = Math.random() * (canvas.width * 0.8) + canvas.width * 0.1;
-                    var randomY = Math.random() * (canvas.height * 0.45) + canvas.height * 0.1;
-                    spawnFirework(randomX, randomY);
-                }, 450);
-
-                // Dừng bắn tự động và ẩn thông báo sau 6.5 giây
-                setTimeout(function() {
-                    clearInterval(shootInterval);
-                    if (toast) toast.style.display = 'none';
-                }, 6500);
-            }
-
-            // Hiển thị Dải băng 3 Huy hiệu ở cạnh phải nếu đã chiến thắng
-            if (hasVictoryParam || localStorage.getItem('ngt_scout_unlocked') === 'true') {
-                var sashZone = document.getElementById('scout-sash-zone');
-                if (sashZone) sashZone.style.display = 'block';
+        window.addEventListener('mousedown', function(e) {
+            if (e.target.closest && e.target.closest('.scout-sash-zone')) return;
+            if (activeBadge === 'pen') {
+                isDrawingPen = true;
+                currentStroke = { points: [{ x: e.clientX, y: e.clientY }], alpha: 1, isDrawing: true };
+                inkStrokes.push(currentStroke);
             }
         });
-    </script>
+
+        window.addEventListener('mouseup', function() {
+            if (isDrawingPen && currentStroke) { isDrawingPen = false; currentStroke.isDrawing = false; }
+        });
+
+        window.addEventListener('mousemove', function(e) {
+            if (activeBadge === 'pen' && isDrawingPen && currentStroke) currentStroke.points.push({ x: e.clientX, y: e.clientY });
+            else if (activeBadge === 'fire') spawnFire(e.clientX, e.clientY);
+            else if (activeBadge === 'flower') spawnEmoji(e.clientX, e.clientY, ['🌸', '🌼', '🍂'], 1.2);
+            else if (activeBadge === 'books') spawnEmoji(e.clientX, e.clientY, ['📚', '📖', '✏️'], -1.2);
+            else if (activeBadge === 'snow') spawnEmoji(e.clientX, e.clientY, ['❄️', '❅', '❆'], 1.5);
+            else if (activeBadge === 'star') spawnEmoji(e.clientX, e.clientY, ['🌟', '✨', '💫'], 0);
+            else if (activeBadge === 'bubble') spawnBubble(e.clientX, e.clientY);
+        });
+
+        var won = window.location.search.indexOf('victory=1') !== -1;
+        if (won) {
+            totalTrophies += 1;
+            localStorage.setItem('ngt_trophies', totalTrophies);
+            if (window.history && window.history.replaceState) window.history.replaceState({}, document.title, window.location.pathname);
+
+            var toast = document.getElementById('victory-toast');
+            if (toast) {
+                toast.textContent = '🎉 Chúc mừng bạn đã giải mã thành công Di sản NGT! (Đạt ' + totalTrophies + ' Cúp) 🎉';
+                toast.style.display = 'block';
+            }
+            spawnFirework(canvas.width * 0.3, canvas.height * 0.3);
+            spawnFirework(canvas.width * 0.7, canvas.height * 0.25);
+            var timer = setInterval(function() {
+                spawnFirework(Math.random()*canvas.width*0.8 + canvas.width*0.1, Math.random()*canvas.height*0.45 + canvas.height*0.1);
+            }, 450);
+            setTimeout(function() { clearInterval(timer); if (toast) toast.style.display = 'none'; }, 6500);
+        }
+
+        if (totalTrophies > 0) {
+            var zone = document.getElementById('scout-sash-zone');
+            if (zone) zone.style.display = 'block';
+            updateTrophyUI();
+        }
+    });
+</script>
 </body>
-</html>
