@@ -834,6 +834,22 @@
         if (Math.random() > 0.4) return;
         particles.push({ type: 'bubble', x: x, y: y, vx: (Math.random()-0.5)*1.5, vy: -(Math.random()*2+1), alpha: 0.9, size: Math.random()*8+6 });
     }
+        var shootingStars = [];
+
+    function spawnShootingStar(tx, ty) {
+        // Sao băng xuất phát từ góc trên bên trái hoặc phải, bay chéo xuống điểm click (tx, ty)
+        var startX = tx + (Math.random() > 0.5 ? -280 : 280);
+        var startY = Math.max(0, ty - 320);
+        var dist = Math.hypot(tx - startX, ty - startY);
+        var speed = 16; // Tốc độ sao băng lao xuống
+        shootingStars.push({
+            x: startX, y: startY,
+            tx: tx, ty: ty,
+            vx: ((tx - startX) / dist) * speed,
+            vy: ((ty - startY) / dist) * speed
+        });
+    }
+
     function animateFX() {
         if (!ctx || !canvas) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -859,6 +875,53 @@
             for (var k = 1; k < b.segments.length; k++) ctx.lineTo(b.segments[k].x, b.segments[k].y);
             ctx.stroke(); ctx.restore();
         }
+                // Vẽ Sao băng lao xuống và nổ sao lấp lánh khi chạm điểm click
+        for (var m = shootingStars.length - 1; m >= 0; m--) {
+            var st = shootingStars[m];
+            st.x += st.vx;
+            st.y += st.vy;
+
+            // Vẽ vệt đuôi sao băng phát sáng
+            ctx.save();
+            var grad = ctx.createLinearGradient(st.x, st.y, st.x - st.vx * 4, st.y - st.vy * 4);
+            grad.addColorStop(0, '#ffffff');
+            grad.addColorStop(0.4, '#fde68a');
+            grad.addColorStop(1, 'rgba(253, 230, 138, 0)');
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(st.x, st.y);
+            ctx.lineTo(st.x - st.vx * 4, st.y - st.vy * 4);
+            ctx.stroke();
+
+            // Đầu ngôi sao sáng rực
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(st.x, st.y, 3.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            // Kiểm tra khi sao băng chạm tới vị trí click -> Nổ tung 28 ngôi sao tứ phía
+            if (Math.hypot(st.tx - st.x, st.ty - st.y) <= 18) {
+                var starIcons = ['⭐', '🌟', '✨', '💫'];
+                for (var n = 0; n < 28; n++) {
+                    var ang = (Math.PI * 2 / 28) * n + (Math.random() * 0.2);
+                    var spd = Math.random() * 4.5 + 1.5;
+                    particles.push({
+                        type: 'emoji',
+                        x: st.tx, y: st.ty,
+                        vx: Math.cos(ang) * spd,
+                        vy: Math.sin(ang) * spd,
+                        alpha: 1,
+                        icon: starIcons[n % starIcons.length],
+                        size: Math.random() * 8 + 12
+                    });
+                }
+                shootingStars.splice(m, 1);
+            }
+        }
+
 
         for (var i = particles.length - 1; i >= 0; i--) {
             var p = particles[i];
@@ -888,6 +951,7 @@
             if (e.target.closest && e.target.closest('.scout-sash-zone')) return;
             if (activeBadge === 'firework') spawnFirework(e.clientX, e.clientY);
             if (activeBadge === 'lightning') spawnLightning(e.clientX, e.clientY);
+            if (activeBadge === 'star') spawnShootingStar(e.clientX, e.clientY);
         });
 
         window.addEventListener('mousedown', function(e) {
@@ -911,6 +975,7 @@
             else if (activeBadge === 'snow') spawnEmoji(e.clientX, e.clientY, ['❄️', '❅', '❆'], 1.5);
             else if (activeBadge === 'star') spawnEmoji(e.clientX, e.clientY, ['🌟', '✨', '💫'], 0);
             else if (activeBadge === 'bubble') spawnBubble(e.clientX, e.clientY);
+     
         });
 
         var won = window.location.search.indexOf('victory=1') !== -1;
