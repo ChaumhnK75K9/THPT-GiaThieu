@@ -126,6 +126,121 @@
 
         footer { background: var(--primary); color: #e2e8f0; text-align: center; padding: 28px 20px; border-top: 4px solid var(--accent); }
         @media (max-width: 768px) { .hero h1 { font-size: 2rem; } }
+          /* Vùng cảm ứng ở mép phải màn hình */
+        .scout-sash-zone {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 9998;
+            padding: 20px 0 20px 25px; /* Mở rộng vùng nhận chuột sang trái một chút */
+            display: none; /* Mặc định ẩn, chỉ hiện sau khi chiến thắng */
+        }
+
+        /* Dải băng vải cắm trại */
+        .scout-sash {
+            background: linear-gradient(180deg, #5c4033, #3e2723);
+            border: 3px solid #d97706;
+            border-right: none;
+            border-radius: 20px 0 0 20px;
+            padding: 16px 14px 16px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            box-shadow: -5px 8px 25px rgba(0, 0, 0, 0.45);
+            /* Bình thường thu gọn sát mép phải, chỉ lộ mép viền vàng */
+            transform: translateX(72%);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+        }
+
+        /* Nhãn chỉ dẫn nhỏ ở mép ngoài */
+        .sash-tab {
+            position: absolute;
+            left: -26px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #d97706;
+            color: #fff;
+            padding: 10px 5px;
+            border-radius: 10px 0 0 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            box-shadow: -3px 0 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+
+        /* Đưa chuột tới vùng bên phải thì trượt dải băng ra */
+        .scout-sash-zone:hover .scout-sash {
+            transform: translateX(0);
+        }
+
+        /* Từng nút huy hiệu thêu tròn */
+        .merit-badge {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: 3px dashed #fde68a; /* Viền chỉ thêu đặc trưng */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.25s ease;
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.4), 0 4px 10px rgba(0,0,0,0.3);
+            user-select: none;
+        }
+
+        .merit-badge:hover {
+            transform: scale(1.1);
+        }
+
+        /* Màu sắc riêng cho 3 huy hiệu */
+        .badge-firework { background: radial-gradient(circle, #1e3a8a, #0f172a); }
+        .badge-fire     { background: radial-gradient(circle, #9a3412, #450a0a); }
+        .badge-flower   { background: radial-gradient(circle, #854d0e, #422006); }
+
+        .merit-badge span.icon {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .merit-badge span.label {
+            font-size: 0.6rem;
+            color: #fef3c7;
+            font-weight: 700;
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Trạng thái ĐANG CHỌN huy hiệu */
+        .merit-badge.active {
+            border: 3px solid #10b981;
+            box-shadow: 0 0 16px #10b981, inset 0 0 10px rgba(16, 185, 129, 0.5);
+            transform: scale(1.12);
+        }
+
+        .merit-badge.active::after {
+            content: '✔';
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #10b981;
+            color: white;
+            font-size: 0.65rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            border: 1.5px solid white;
+        }
     </style>
 </head>
 <body>
