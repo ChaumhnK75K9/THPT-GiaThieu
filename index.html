@@ -904,6 +904,7 @@
 
             // Kiểm tra khi sao băng chạm tới vị trí click -> Nổ tung 28 ngôi sao tứ phía
                       // Kiểm tra khi sao băng chạm tới vị trí click
+                        // Kiểm tra khi sao băng chạm tới vị trí click
             if (Math.hypot(st.tx - st.x, st.ty - st.y) <= 18) {
                 // Đếm xem trên màn hình đang có bao nhiêu emoji (sao)
                 var emojiCount = 0;
@@ -915,10 +916,10 @@
                     // Nếu đang có quá 9 sao -> Chuyển sang nổ pháo hoa chấm tròn cho mượt máy
                     spawnFirework(st.tx, st.ty);
                 } else {
-                    // Nếu ít hơn hoặc bằng 9 sao -> Nổ tung 10 ngôi sao lấp lánh
+                    // Nếu ít hơn hoặc bằng 9 sao -> Nổ tung 3 ngôi sao tỏa đều 3 hướng
                     var starIcons = ['⭐', '🌟', '✨', '💫'];
                     for (var n = 0; n < 3; n++) {
-                        var ang = (Math.PI * 2 / 10) * n + (Math.random() * 0.2);
+                        var ang = (Math.PI * 2 / 3) * n + (Math.random() * 0.5);
                         var spd = Math.random() * 4.5 + 1.5;
                         particles.push({
                             type: 'emoji',
@@ -933,6 +934,7 @@
                 }
                 shootingStars.splice(m, 1);
             }
+
 
 
 
