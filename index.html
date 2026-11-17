@@ -911,14 +911,14 @@
                     if (particles[c].type === 'emoji') emojiCount++;
                 }
 
-                if (emojiCount > 9) {
+                if (emojiCount > 6) {
                     // Nếu đang có quá 9 sao -> Chuyển sang nổ pháo hoa chấm tròn cho mượt máy
                     spawnFirework(st.tx, st.ty);
-                } else {
-                    // Nếu ít hơn hoặc bằng 9 sao -> Nổ tung 3 ngôi sao tỏa đều 3 hướng
-                    var starIcons = ['⭐', '🌟', '✨', '💫'];
+               } else {
+                    // Trộn ngẫu nhiên 4 loại sao rồi lấy 3 sao bất kỳ
+                    var starIcons = ['⭐', '🌟', '✨', '💫'].sort(function() { return Math.random() - 0.5; });
                     for (var n = 0; n < 3; n++) {
-                        var ang = (Math.PI * 2 / 3) * n + (Math.random() * 0.5);
+                        var ang = (Math.PI * 2 / 3) * n + (Math.random() * 0.3);
                         var spd = Math.random() * 4.5 + 1.5;
                         particles.push({
                             type: 'emoji',
@@ -926,8 +926,8 @@
                             vx: Math.cos(ang) * spd,
                             vy: Math.sin(ang) * spd,
                             alpha: 1,
-                            icon: starIcons[n % starIcons.length],
-                            size: Math.random() * 8 + 12
+                            icon: starIcons[n],
+                            size: Math.random() * 10 + 22 // Tăng kích thước sao to hơn (từ 22px đến 32px)
                         });
                     }
                 }
