@@ -903,23 +903,37 @@
             ctx.restore();
 
             // Kiểm tra khi sao băng chạm tới vị trí click -> Nổ tung 28 ngôi sao tứ phía
+                       // Kiểm tra khi sao băng chạm tới vị trí click
             if (Math.hypot(st.tx - st.x, st.ty - st.y) <= 18) {
-                var starIcons = ['⭐', '🌟', '✨', '💫'];
-                for (var n = 0; n < 3; n++) {
-                    var ang = (Math.PI * 2 / 3) * n + (Math.random() * 0.2);
-                    var spd = Math.random() * 4.5 + 1.5;
-                    particles.push({
-                        type: 'emoji',
-                        x: st.tx, y: st.ty,
-                        vx: Math.cos(ang) * spd,
-                        vy: Math.sin(ang) * spd,
-                        alpha: 1,
-                        icon: starIcons[n % starIcons.length],
-                        size: Math.random() * 8 + 12
-                    });
+                // Đếm xem trên màn hình đang có bao nhiêu emoji (sao)
+                var emojiCount = 0;
+                for (var c = 0; c < particles.length; c++) {
+                    if (particles[c].type === 'emoji') emojiCount++;
+                }
+
+                if (emojiCount > 9) {
+                    // Nếu đang có quá 9 sao -> Chuyển sang nổ pháo hoa chấm tròn cho mượt máy
+                    spawnFirework(st.tx, st.ty);
+                } else {
+                    // Nếu ít hơn hoặc bằng 9 sao -> Nổ tung 3 ngôi sao tỏa đều 3 hướng
+                    var starIcons = ['⭐', '🌟', '✨', '💫'];
+                    for (var n = 0; n < 3; n++) {
+                        var ang = (Math.PI * 2 / 3) * n + (Math.random() * 0.5);
+                        var spd = Math.random() * 4.5 + 1.5;
+                        particles.push({
+                            type: 'emoji',
+                            x: st.tx, y: st.ty,
+                            vx: Math.cos(ang) * spd,
+                            vy: Math.sin(ang) * spd,
+                            alpha: 1,
+                            icon: starIcons[n % starIcons.length],
+                            size: Math.random() * 8 + 12
+                        });
+                    }
                 }
                 shootingStars.splice(m, 1);
             }
+
         }
 
 
