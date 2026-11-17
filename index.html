@@ -20,15 +20,75 @@
         body { background-color: var(--bg-page); color: var(--text-dark); line-height: 1.7; }
 
         /* Thanh điều hướng 7 chuyên mục */
-        header.navbar { position: sticky; top: 0; z-index: 1000; background: var(--primary); border-bottom: 3px solid var(--accent); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
-        .nav-wrap { max-width: 1200px; margin: 0 auto; padding: 10px 20px; }
-        .nav-top { display: flex; justify-content: space-between; align-items: center; color: white; margin-bottom: 8px; }
-        .brand { font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
-        .brand span { background: var(--accent); padding: 2px 10px; border-radius: 20px; font-size: 0.8rem; }
-        .nav-menu { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
-        .nav-menu a { display: block; text-decoration: none; color: #e2e8f0; background: rgba(255,255,255,0.08); padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; transition: 0.25s; }
-        .nav-menu a:hover { background: var(--accent); color: white; font-weight: 600; }
+      header.navbar { 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            background: var(--primary); 
+            border-bottom: 3px solid var(--accent); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15); 
+        }
+        .nav-wrap { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 10px 20px; 
+        }
+        .nav-top { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            color: white; 
+            cursor: pointer;
+        }
+        .brand { 
+            font-weight: 800; 
+            font-size: 1.1rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .brand span { 
+            background: var(--accent); 
+            padding: 2px 10px; 
+            border-radius: 20px; 
+            font-size: 0.8rem; 
+        }
 
+        /* Mặc định ẩn hàng nút chuyên mục (Trang chủ, 01, 02...) */
+        .nav-menu { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 6px; 
+            list-style: none;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-top: 0;
+            transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.3s ease;
+        }
+
+        /* Khi đưa chuột vào vùng thanh trên cùng thì mở rộng hàng chuyên mục */
+        header.navbar:hover .nav-menu { 
+            max-height: 150px; 
+            opacity: 1;
+            margin-top: 10px;
+        }
+
+        .nav-menu a { 
+            display: block; 
+            text-decoration: none; 
+            color: #e2e8f0; 
+            background: rgba(255,255,255,0.08); 
+            padding: 6px 12px; 
+            border-radius: 8px; 
+            font-size: 0.85rem; 
+            transition: 0.25s; 
+        }
+        .nav-menu a:hover { 
+            background: var(--accent); 
+            color: white; 
+            font-weight: 600; 
+        }
         /* Banner Trang chủ */
         .hero {
             background: linear-gradient(135deg, rgba(11, 57, 84, 0.92), rgba(24, 90, 130, 0.86)),
